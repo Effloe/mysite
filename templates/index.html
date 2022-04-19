@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block extra %}
+    <div class="jumbotron text-center" style="margin-bottom:10">
+        <h2>Picture Dectection </h2>
+    </div>
+{% endblock %}
+{% block content %}
+<div class="container" >
+<div class="row clearfix" style="min-height: 180px;">
+    <div class="col-md-6 column" style="background-color:#eee; margin-right: 30px; ">
+        <h5 class="text-left mt-3 text-center">
+            Upload Image
+        </h5>
+
+        <div style="margin-top:10px;margin-bottom: 10px;">
+            <form class="form-inline" role="form" action={{ url_for("index") }} enctype='multipart/form-data' method='POST'>
+                <div class="form-group">
+                    <label class="sr-only" for="name"></label>
+                    <input type="file" name="image" class="form-control" id="image"   style="line-height:1" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload" class="btn btn-primary" style="margin-left: 40px;" />
+                </div>
+            </form>
+            <label style="font-style: italic; color: #665656cc; padding-left:15px">Only for png、PNG、jpg、JPG、bmp format !</label>
+        </div>
+
+        <hr>
+
+        {% if imgname %}
+        <div class="row" style="margin:10px; padding:10px; background-color: white;">
+            <div  class="col-6 text-center">
+                <img src="/static/upload/{{imgname }}" class="thumbnail" style="width:200px;height:200px;">
+            </div>
+            <div class="col-6  text-center m-auto">
+                <form class="form-inline" role="form" action={{ url_for("analysis") }} enctype='multipart/form-data' method='POST'>
+                    <div class="form-group">
+                        <label for="name"></label>
+                        <input type="hidden" id="imgname" name="imgname" class="form-control" value="{{ imgname }}">
+                    </div>
+                    <div class="form-group mx-auto">
+                        <input type="submit" value="Analysis" class="btn btn-primary " />
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-5 column" style="background-color:#eee">
+        <div class="card mt-3">
+            <div class="card-header text-center">
+                <h5>Show Result</h5>
+            </div>
+            <div class="card-body">
+                {% if result %}
+                    <table class="table table-bordered">
+                        <tr>
+                            <td style=" white-space:nowrap">Picture Name:</td>
+                            <td> {{ imgname }} </td>
+                        </tr>
+                        <tr>
+                            <td style=" white-space:nowrap">Take Time:</td>
+                            <td> {{ calctime }} Seconds</td>
+                        </tr>
+                        <tr>
+                            <td style=" white-space:nowrap">Result:</td>
+                            <td> {{ result }} %</td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <p>No result to show!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

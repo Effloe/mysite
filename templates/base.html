@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>detect</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min-4.1.0.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Detection App</a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">History</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" >
+                {% if session['username'] %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Welcome {{ session['username'] }} 
+                    </a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/logout"> Login Out</a>
+    
+                    </div>
+                  </li>
+                {% else %}
+                    <li><a class="nav-link" href="/login"> Login</a></li>
+                    <li><a class="nav-link" href="/register"> Register</a></li>
+                {% endif %}
+                </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+      {% for error_message in get_flashed_messages() %}
+      <div class="alert alert-warning" role="alert">
+        {{ error_message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% block extra %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    <script src="/static/javascript/jquery-3.3.1.slim.min.js" ></script>
+  
+    <script src="/static/javascript/bootstrap.min-4.1.0.js"></script>
+  </body>
+</html>

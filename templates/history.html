@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <!-- <br>
+    <h3 class="text-center"></h3>
+    <br> -->
+<div class="card mt-5" >
+    <div class="card-header text-center">
+        <h3>Detetion history records</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Picture</th>
+                    <th>Result</th>
+                    <th>Take Time</th>
+                    <th>Create Datetime</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td scope="row">{{ result[0] }}</td>
+                        <td>{{ result[1] }}</td>
+                        <td>{{ result[2] }}</td>
+                        <td>{{ result[3] }}</td>
+                        <td>{{ result[4] }}</td>
+                        <td><a class="btn-sm btn-danger" href="/delete/{{result[0]}}">delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row">
+            <ul class="pagination  mx-auto">
+                {% if datas %}
+                    {% if datas.show_shouye_status==1 %}
+                    <li class="page-item"><a  class="page-link" href='{{ url_for("history", page=1) }}'>First</a></li>
+                    <li class="page-item"><a class="page-link" href='{{ url_for("history", page=datas.page-1) }}'>Pres</a></li>
+                    {% endif %}
+
+                    {% for dic in datas.dic_list %}
+                        {% if dic==datas.page%}
+                            <li class="page-item active"><a class="page-link" href='{{ url_for("history", page=dic) }}'>{{dic}}</a></li>
+                        {%else%}
+                            <li class="page-item"><a class="page-link" href='{{ url_for("history",page=dic) }}'>{{dic}}</a></li>
+                        {%endif%}
+                    {%endfor%}
+                    
+                    {% if datas.page < datas.total%} 
+                        <li class="page-item"><a class="page-link" href='{{ url_for("history", page=datas.page + 1) }}'>Next</a></li>
+                        <li class="page-item"><a class="page-link" href='{{ url_for("history", page=datas.total) }}'>Last</a></li>
+                    {%endif%}
+                    <li class="page-item"><a class="page-link" href="#" style="margin-left:10px"> Total {{datas.total}} pages</a></li>
+                {% endif %}
+            </ul>
+
+            <!-- <div class="col-md-12 column">
+                <div class="row clearfix">
+                    <div class="col-md-8 column col-md-offset-4">
+                        
+                        <ul class="pagination">
+                            {% if datas %}
+                                {% if datas.show_shouye_status==1 %}
+                                <li class=''><a href='{{ url_for("history", page=1) }}'>First</a></li>
+                                <li class=''><a href='{{ url_for("history", page=datas.page-1) }}'>Pres</a></li>
+                                {% endif %}
+        
+                                {% for dic in datas.dic_list %}
+                                    {% if dic==datas.page%}
+                                    <li class="active"><a href='{{ url_for("history", page=dic) }}'>{{dic}}</a></li>
+                                    {%else%}
+                                    <li><a href='{{ url_for("history",page=dic) }}'>{{dic}}</a></li>
+                                    {%endif%}
+                                {%endfor%}
+        
+                                {% if datas.page < datas.total%} <li class=''><a href='{{ url_for("history", page=datas.page + 1) }}'>Next</a></li>
+                                <li class=''><a href='{{ url_for("history", page=datas.total) }}'>Last</a></li>
+                                {%endif%}
+                                <li><a href="#" style="margin-left:10px">  Total {{datas.total}} pages</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
